@@ -6,8 +6,7 @@ def convert_if_to_function():
         c_code = f.read()
     
     # define the regex pattern to match if statements with a test number
-    if_pattern = r'if\s*\((.*?)\)\s*\{(.*?)\}'
-    test_pattern = r'test_number\s*==\s*(\d+)'
+    if_pattern = r'if\s*\(\s*test_number\s*==\s*(\d+)\s*\)\s*\{\s*(.*?)\s*\}'
     
     # find all if statements with a test number in the code
     if_matches = re.findall(if_pattern, c_code, re.DOTALL)
