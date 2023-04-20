@@ -1,10 +1,11 @@
 import re
 
-def convert_if_to_function(c_file_path):
+def convert_if_to_function():
     # read the C file
-    with open(c_file_path, 'r') as f:
+    with open("test.c", 'r') as f:
         c_code = f.read()
     
+        
     # define the regex pattern to match if statements with a test number
     if_pattern = r'if\s*\(\s*test_number\s*==\s*(\d+)\s*\)\s*\{\s*(.*?)\s*\}'
     
@@ -29,9 +30,18 @@ def convert_if_to_function(c_file_path):
         
         # add the new function to the code
         c_code += func_code
+        
+        # print out debug information
+        print('Match {}: {}'.format(i, match))
+        print('Function name: {}'.format(func_name))
+        print('Function code: {}'.format(func_code))
+        print('Call code: {}'.format(call_code))
     
     # write the modified code back to the file
-    with open(c_file_path, 'w') as f:
+    with open("test1.c", 'w') as f:
         f.write(c_code)
+        
+    # print out the modified code
+    print('Modified code: \n{}'.format(c_code))
         
 convert_if_to_function()
