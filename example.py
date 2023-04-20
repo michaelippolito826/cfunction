@@ -1,8 +1,8 @@
 import re
 
-def convert_if_to_function():
+def convert_if_to_function(c_file_path):
     # read the C file
-    with open("test.c", 'r') as f:
+    with open(c_file_path, 'r') as f:
         c_code = f.read()
     
     # define the regex pattern to match if statements with a test number
@@ -10,16 +10,12 @@ def convert_if_to_function():
     
     # find all if statements with a test number in the code
     if_matches = re.findall(if_pattern, c_code, re.DOTALL)
-    test_matches = [re.search(test_pattern, condition) for condition, _ in if_matches]
     
     # iterate over the matches and create functions
     for i, match in enumerate(if_matches):
-        # extract the condition and the code block
-        condition = match[0]
+        # extract the test number and the code block
+        test_number = match[0]
         code_block = match[1]
-        
-        # extract the test number from the condition
-        test_number = test_matches[i].group(1)
         
         # create a function name based on the test number
         func_name = 'test_{}'.format(test_number)
@@ -35,7 +31,7 @@ def convert_if_to_function():
         c_code += func_code
     
     # write the modified code back to the file
-    with open("test_1.c", 'w') as f:
+    with open(c_file_path, 'w') as f:
         f.write(c_code)
-
+        
 convert_if_to_function()
